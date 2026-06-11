@@ -13,190 +13,46 @@ import type {
   User,
   UserPhoto
 } from './types';
+import {
+  BOLT_FOOD_SOURCE_URL,
+  BOLT_MENU_CATEGORIES,
+  BOLT_MENU_MODIFIER_GROUPS,
+  BOLT_MENU_PRODUCTS,
+  BOLT_RESTAURANT_PROFILE,
+  BOLT_STORE_IMAGE_URL
+} from './data/boltMenu';
 
 export const BRANCHES: Branch[] = [
   {
     id: 'westlands',
-    name: 'Nairobi Italian Ice & Eats',
-    area: 'Westlands',
-    address: 'Waiyaki Way, Westlands, Nairobi',
-    phone: '+254 700 000 100',
-    openUntil: '10:00 PM',
-    isActive: true
+    name: BOLT_RESTAURANT_PROFILE.name,
+    area: 'New Muthaiga',
+    address: BOLT_RESTAURANT_PROFILE.address,
+    phone: BOLT_RESTAURANT_PROFILE.phone,
+    openUntil: '6:45 PM weekdays, 7:45 PM weekends',
+    isActive: true,
+    heroImageUrl: BOLT_STORE_IMAGE_URL,
+    cuisine: BOLT_RESTAURANT_PROFILE.cuisine,
+    latitude: BOLT_RESTAURANT_PROFILE.latitude,
+    longitude: BOLT_RESTAURANT_PROFILE.longitude,
+    openingHours: [...BOLT_RESTAURANT_PROFILE.openingHours],
+    sourceUrl: BOLT_FOOD_SOURCE_URL
   }
 ];
 
-export const CATEGORIES: ProductCategory[] = [
-  'Italian Ice',
-  'Gelato',
-  'Ice Cream',
-  'Milkshakes',
-  'Smoothies',
-  'Desserts',
-  'Pastries',
-  'Sandwiches',
-  'Coffee',
-  'Cold Drinks',
-  'Seasonal Specials'
-];
+export const CATEGORIES: ProductCategory[] = BOLT_MENU_CATEGORIES;
 
-export const MODIFIER_GROUPS: ModifierGroup[] = [
-  {
-    id: 'size',
-    name: 'Size',
-    min: 1,
-    max: 1,
-    options: [
-      { id: 'small', name: 'Small', price: 0 },
-      { id: 'regular', name: 'Regular', price: 150 },
-      { id: 'large', name: 'Large', price: 300 }
-    ]
-  },
-  {
-    id: 'toppings',
-    name: 'Toppings',
-    min: 0,
-    max: 4,
-    options: [
-      { id: 'fresh-mango', name: 'Fresh Mango', price: 120 },
-      { id: 'cookie-crumble', name: 'Cookie Crumble', price: 100 },
-      { id: 'toasted-coconut', name: 'Toasted Coconut', price: 90 },
-      { id: 'chocolate-shards', name: 'Chocolate Shards', price: 140 }
-    ]
-  },
-  {
-    id: 'sauces',
-    name: 'Sauces',
-    min: 0,
-    max: 2,
-    options: [
-      { id: 'salted-caramel', name: 'Salted Caramel', price: 100 },
-      { id: 'berry-coulis', name: 'Berry Coulis', price: 80 },
-      { id: 'dark-chocolate', name: 'Dark Chocolate', price: 100 }
-    ]
-  }
-];
+export const MODIFIER_GROUPS: ModifierGroup[] = BOLT_MENU_MODIFIER_GROUPS;
 
-export const MOCK_PRODUCTS: Product[] = [
-  {
-    id: 'p1',
-    branchId: 'westlands',
-    name: 'Strawberry Mango Italian Ice',
-    description: 'Refreshing dairy-free Italian ice with real strawberries and mango.',
-    price: 350,
-    category: 'Italian Ice',
-    imageUrl: 'https://images.unsplash.com/photo-1517260739337-6799d239ce83?q=80&w=2938&auto=format&fit=crop',
-    isPopular: true,
-    inStock: true,
-    tags: ['Dairy-free', 'Top seller'],
-    allergens: [],
-    calories: 180,
-    modifierGroupIds: ['size', 'toppings', 'sauces'],
-    recommendedWith: ['p4', 'p8']
-  },
-  {
-    id: 'p2',
-    branchId: 'westlands',
-    name: 'Madagascar Vanilla Gelato',
-    description: 'Rich and creamy gelato made with single-origin Madagascar vanilla beans.',
-    price: 450,
-    category: 'Gelato',
-    imageUrl: 'https://images.unsplash.com/photo-1563805042-7684c8a9e9ce?q=80&w=2682&auto=format&fit=crop',
-    isPopular: true,
-    inStock: true,
-    tags: ['Creamy', 'Premium'],
-    allergens: ['Milk'],
-    calories: 310,
-    modifierGroupIds: ['size', 'toppings', 'sauces'],
-    recommendedWith: ['p5']
-  },
-  {
-    id: 'p3',
-    branchId: 'westlands',
-    name: 'Cookies & Cream Milkshake',
-    description: 'Thick hand-spun milkshake layered with crushed chocolate cookies.',
-    price: 500,
-    category: 'Milkshakes',
-    imageUrl: 'https://images.unsplash.com/photo-1572490122747-3968b75cc699?q=80&w=2787&auto=format&fit=crop',
-    isPopular: false,
-    inStock: true,
-    tags: ['Rich', 'Classic'],
-    allergens: ['Milk', 'Wheat'],
-    calories: 520,
-    modifierGroupIds: ['sauces', 'toppings']
-  },
-  {
-    id: 'p4',
-    branchId: 'westlands',
-    name: 'Double Chocolate Brownie',
-    description: 'Warm fudge brownie topped with sea salt.',
-    price: 300,
-    category: 'Desserts',
-    imageUrl: 'https://images.unsplash.com/photo-1606313564200-e75d5e30476c?q=80&w=2787&auto=format&fit=crop',
-    isPopular: false,
-    inStock: true,
-    tags: ['Bakery'],
-    allergens: ['Wheat', 'Milk'],
-    calories: 380
-  },
-  {
-    id: 'p5',
-    branchId: 'westlands',
-    name: 'Iced Caramel Macchiato',
-    description: 'Fresh espresso over ice, mixed with milk and vanilla syrup, topped with caramel.',
-    price: 400,
-    category: 'Coffee',
-    imageUrl: 'https://images.unsplash.com/photo-1497935586351-b67a49e012bf?q=80&w=2024&auto=format&fit=crop',
-    isPopular: true,
-    inStock: true,
-    tags: ['Coffee', 'Cold'],
-    allergens: ['Milk'],
-    calories: 240,
-    modifierGroupIds: ['sauces']
-  },
-  {
-    id: 'p6',
-    branchId: 'westlands',
-    name: 'Office Italian Ice Box',
-    description: 'Twelve assorted Italian ice cups for meetings, birthdays, and team treats.',
-    price: 4200,
-    category: 'Seasonal Specials',
-    imageUrl: 'https://images.unsplash.com/photo-1517093157656-b9eccef91cb1?q=80&w=2787&auto=format&fit=crop',
-    isPopular: true,
-    inStock: true,
-    tags: ['Corporate', 'Catering'],
-    allergens: [],
-    calories: 180
-  },
-  {
-    id: 'p7',
-    branchId: 'westlands',
-    name: 'Tropical Green Smoothie',
-    description: 'Mango, pineapple, spinach, and lime blended cold.',
-    price: 480,
-    category: 'Smoothies',
-    imageUrl: 'https://images.unsplash.com/photo-1502741224143-90386d7f8c82?q=80&w=2940&auto=format&fit=crop',
-    isPopular: false,
-    inStock: true,
-    tags: ['Vegan', 'Fresh'],
-    allergens: [],
-    calories: 210
-  },
-  {
-    id: 'p8',
-    branchId: 'westlands',
-    name: 'Butter Croissant',
-    description: 'Flaky pastry baked for coffee pairings and morning pickups.',
-    price: 280,
-    category: 'Pastries',
-    imageUrl: 'https://images.unsplash.com/photo-1555507036-ab1f4038808a?q=80&w=2787&auto=format&fit=crop',
-    isPopular: false,
-    inStock: true,
-    tags: ['Bakery'],
-    allergens: ['Wheat', 'Milk'],
-    calories: 290
+export const MOCK_PRODUCTS: Product[] = BOLT_MENU_PRODUCTS;
+
+function productById(productId: string) {
+  const product = MOCK_PRODUCTS.find(item => item.id === productId);
+  if (!product) {
+    throw new Error(`Missing seeded product: ${productId}`);
   }
-];
+  return product;
+}
 
 export const PROMOTIONS: Promotion[] = [
   {
@@ -253,8 +109,8 @@ export const MOCK_PHOTOS: UserPhoto[] = [
     id: 'ph1',
     userId: 'u1',
     userName: 'David Musau',
-    productId: 'p1',
-    photoUrl: 'https://images.unsplash.com/photo-1557142046-c704a3adf364?q=80&w=2687&auto=format&fit=crop',
+    productId: 'bolt-italian-ice',
+    photoUrl: productById('bolt-italian-ice').imageUrl,
     status: 'approved',
     createdAt: new Date().toISOString()
   },
@@ -262,8 +118,8 @@ export const MOCK_PHOTOS: UserPhoto[] = [
     id: 'ph2',
     userId: 'u2',
     userName: 'Sarah M.',
-    productId: 'p2',
-    photoUrl: 'https://images.unsplash.com/photo-1563805042-7684c8a9e9ce?q=80&w=2682&auto=format&fit=crop',
+    productId: 'bolt-caramel-matcha',
+    photoUrl: productById('bolt-caramel-matcha').imageUrl,
     status: 'approved',
     createdAt: new Date(Date.now() - 86400000).toISOString()
   },
@@ -271,7 +127,8 @@ export const MOCK_PHOTOS: UserPhoto[] = [
     id: 'ph3',
     userId: 'u3',
     userName: 'John K.',
-    photoUrl: 'https://images.unsplash.com/photo-1572490122747-3968b75cc699?q=80&w=2787&auto=format&fit=crop',
+    productId: 'bolt-sweet-escape',
+    photoUrl: productById('bolt-sweet-escape').imageUrl,
     status: 'pending',
     createdAt: new Date().toISOString()
   }
@@ -301,10 +158,10 @@ export const MOCK_ORDERS: Order[] = [
     customerName: 'Amina Otieno',
     customerEmail: 'amina@example.com',
     items: [
-      { product: MOCK_PRODUCTS[5], quantity: 1 },
-      { product: MOCK_PRODUCTS[0], quantity: 3 }
+      { product: productById('bolt-sweet-escape'), quantity: 1 },
+      { product: productById('bolt-strawberry-matcha'), quantity: 3 }
     ],
-    total: 5210,
+    total: 2850,
     status: 'preparing',
     createdAt: new Date(Date.now() - 1000 * 60 * 18).toISOString(),
     fulfillment: 'delivery',
@@ -318,10 +175,10 @@ export const MOCK_ORDERS: Order[] = [
     customerName: 'Jackson Lee',
     customerEmail: 'jackson@example.com',
     items: [
-      { product: MOCK_PRODUCTS[1], quantity: 4 },
-      { product: MOCK_PRODUCTS[4], quantity: 2 }
+      { product: productById('bolt-nairobi-club'), quantity: 1 },
+      { product: productById('bolt-classic-lemonade'), quantity: 2 }
     ],
-    total: 2600,
+    total: 1650,
     status: 'ready',
     createdAt: new Date(Date.now() - 1000 * 60 * 9).toISOString(),
     fulfillment: 'pickup',
@@ -334,8 +191,8 @@ export const MOCK_ORDERS: Order[] = [
     branchId: 'westlands',
     customerName: 'Wanjiku & Co.',
     customerEmail: 'office@example.com',
-    items: [{ product: MOCK_PRODUCTS[5], quantity: 2 }],
-    total: 7900,
+    items: [{ product: productById('bolt-perpect-pair'), quantity: 4 }],
+    total: 5600,
     status: 'paid',
     createdAt: new Date(Date.now() - 1000 * 60 * 4).toISOString(),
     fulfillment: 'corporate',

@@ -1,4 +1,8 @@
 export type ProductCategory =
+  | 'Drinks'
+  | 'Bites'
+  | 'Hot Drinks'
+  | 'Combos'
   | 'Italian Ice'
   | 'Gelato'
   | 'Ice Cream'
@@ -25,6 +29,12 @@ export interface Branch {
   phone: string;
   openUntil: string;
   isActive: boolean;
+  heroImageUrl?: string;
+  cuisine?: string;
+  latitude?: number;
+  longitude?: number;
+  openingHours?: string[];
+  sourceUrl?: string;
 }
 
 export interface ModifierOption {

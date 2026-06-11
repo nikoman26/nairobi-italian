@@ -6,9 +6,9 @@ import { Badge } from "@/components/ui/badge";
 import { useCart } from "@/src/components/cart/CartProvider";
 import { formatKes } from "@/src/lib/commerce";
 import { MOCK_PRODUCTS, MODIFIER_GROUPS } from "../../data";
-import type { CartCustomization, ModifierGroup } from "../../types";
+import type { CartCustomization, ModifierGroup, Product } from "../../types";
 
-const buildableProducts = MOCK_PRODUCTS.filter(product => product.modifierGroupIds?.length);
+const buildableProducts = MOCK_PRODUCTS.filter(product => product.category === 'Desserts' && product.modifierGroupIds?.length);
 
 function selectedOptionIds(customizations: CartCustomization[], group: ModifierGroup) {
   return customizations
@@ -16,11 +16,23 @@ function selectedOptionIds(customizations: CartCustomization[], group: ModifierG
     .map(item => item.optionId);
 }
 
+function defaultCustomizations(product: Product): CartCustomization[] {
+  const groups = MODIFIER_GROUPS.filter(group => product.modifierGroupIds?.includes(group.id));
+
+  return groups.flatMap(group => {
+    if (group.min <= 0) return [];
+    return group.options.slice(0, group.min).map(option => ({
+      modifierGroupId: group.id,
+      optionId: option.id
+    }));
+  });
+}
+
 export function StorefrontBuilder() {
   const [productId, setProductId] = useState(buildableProducts[0]?.id ?? '');
-  const [customizations, setCustomizations] = useState<CartCustomization[]>([
-    { modifierGroupId: 'size', optionId: 'regular' }
-  ]);
+  const [customizations, setCustomizations] = useState<CartCustomization[]>(() =>
+    buildableProducts[0] ? defaultCustomizations(buildableProducts[0]) : []
+  );
   const { addItem } = useCart();
 
   const product = buildableProducts.find(item => item.id === productId) ?? buildableProducts[0];
@@ -78,7 +90,10 @@ export function StorefrontBuilder() {
                   <button
                     key={item.id}
                     type="button"
-                    onClick={() => setProductId(item.id)}
+                    onClick={() => {
+                      setProductId(item.id);
+                      setCustomizations(defaultCustomizations(item));
+                    }}
                     className={`rounded-lg border p-4 text-left transition-colors ${
                       productId === item.id ? 'border-[#FF6B35] bg-[#FF6B35]/10' : 'border-white/10 bg-white/5 hover:border-white/20'
                     }`}

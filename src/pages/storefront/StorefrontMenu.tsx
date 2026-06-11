@@ -29,7 +29,7 @@ function defaultCustomizations(product: Product): CartCustomization[] {
 }
 
 export function StorefrontMenu() {
-  const [activeCategory, setActiveCategory] = useState<ProductCategory>('Italian Ice');
+  const [activeCategory, setActiveCategory] = useState<ProductCategory>(CATEGORIES[0]);
   const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
   const [customizations, setCustomizations] = useState<CartCustomization[]>([]);
   const [quickViewQuantity, setQuickViewQuantity] = useState(1);

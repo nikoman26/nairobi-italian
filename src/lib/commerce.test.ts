@@ -4,11 +4,14 @@ import { calculateCartTotals, calculateLineTotal } from './commerce';
 
 describe('commerce helpers', () => {
   it('calculates cart totals with modifiers, promo, delivery fee, and points', () => {
+    const italianIce = MOCK_PRODUCTS.find(product => product.id === 'bolt-italian-ice');
+    if (!italianIce) throw new Error('Missing imported Italian Ice product');
+
     const item = {
-      product: MOCK_PRODUCTS[0],
+      product: italianIce,
       quantity: 2,
       customizations: [
-        { modifierGroupId: 'size', optionId: 'regular' },
+        { modifierGroupId: 'size', optionId: 'large' },
         { modifierGroupId: 'toppings', optionId: 'fresh-mango' }
       ]
     };
@@ -25,7 +28,10 @@ describe('commerce helpers', () => {
   });
 
   it('does not apply a fixed promo before minimum spend is met', () => {
-    const totals = calculateCartTotals([{ product: MOCK_PRODUCTS[1], quantity: 2 }], 'pickup', 'OFFICE500');
+    const strawberryKiss = MOCK_PRODUCTS.find(product => product.id === 'bolt-strawberry-kiss');
+    if (!strawberryKiss) throw new Error('Missing imported Strawberry Kiss product');
+
+    const totals = calculateCartTotals([{ product: strawberryKiss, quantity: 2 }], 'pickup', 'OFFICE500');
 
     expect(totals.subtotal).toBe(900);
     expect(totals.discount).toBe(0);
