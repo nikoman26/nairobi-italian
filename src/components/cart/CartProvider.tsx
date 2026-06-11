@@ -1,5 +1,6 @@
-import { createContext, useContext, useMemo, useState, type ReactNode } from 'react';
+import { createContext, useContext, useEffect, useMemo, useState, type ReactNode } from 'react';
 import { calculateCartTotals } from '@/src/lib/commerce';
+import { readCartSnapshot, saveCartSnapshot } from '@/src/lib/cartStorage';
 import type { CartCustomization, CartItem, CartTotals, FulfillmentType, Product } from '@/src/types';
 
 interface CartContextValue {
@@ -9,6 +10,7 @@ interface CartContextValue {
   totals: CartTotals;
   itemCount: number;
   addItem: (product: Product, quantity?: number, customizations?: CartCustomization[]) => void;
+  addItems: (items: CartItem[]) => void;
   updateQuantity: (productId: string, quantity: number, customizations?: CartCustomization[]) => void;
   removeItem: (productId: string, customizations?: CartCustomization[]) => void;
   setFulfillment: (fulfillment: FulfillmentType) => void;
@@ -30,12 +32,17 @@ function sameLine(item: CartItem, productId: string, customizations?: CartCustom
 }
 
 export function CartProvider({ children }: { children: ReactNode }) {
-  const [items, setItems] = useState<CartItem[]>([]);
-  const [fulfillment, setFulfillment] = useState<FulfillmentType>('pickup');
-  const [promoCode, setPromoCodeState] = useState('');
+  const [initialCart] = useState(readCartSnapshot);
+  const [items, setItems] = useState<CartItem[]>(initialCart.items);
+  const [fulfillment, setFulfillment] = useState<FulfillmentType>(initialCart.fulfillment);
+  const [promoCode, setPromoCodeState] = useState(initialCart.promoCode);
 
   const totals = useMemo(() => calculateCartTotals(items, fulfillment, promoCode), [items, fulfillment, promoCode]);
   const itemCount = items.reduce((sum, item) => sum + item.quantity, 0);
+
+  useEffect(() => {
+    saveCartSnapshot({ items, fulfillment, promoCode });
+  }, [items, fulfillment, promoCode]);
 
   const value = useMemo<CartContextValue>(
     () => ({
@@ -51,6 +58,19 @@ export function CartProvider({ children }: { children: ReactNode }) {
           return current.map((item) =>
             sameLine(item, product.id, customizations) ? { ...item, quantity: item.quantity + quantity } : item
           );
+        });
+      },
+      addItems(nextItems) {
+        setItems((current) => {
+          return nextItems.reduce<CartItem[]>((running, nextItem) => {
+            const existing = running.find((item) => sameLine(item, nextItem.product.id, nextItem.customizations));
+            if (!existing) return [...running, nextItem];
+            return running.map((item) =>
+              sameLine(item, nextItem.product.id, nextItem.customizations)
+                ? { ...item, quantity: item.quantity + nextItem.quantity }
+                : item
+            );
+          }, current);
         });
       },
       updateQuantity(productId, quantity, customizations = []) {

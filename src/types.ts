@@ -13,6 +13,7 @@ export type ProductCategory =
 
 export type FulfillmentType = 'pickup' | 'delivery' | 'scheduled' | 'corporate';
 export type PaymentMethod = 'M-Pesa' | 'Card' | 'Cash' | 'Gift Card' | 'Corporate Credit';
+export type PaymentStatus = 'idle' | 'request-sent' | 'pending' | 'confirmed' | 'failed' | 'cancelled';
 export type OrderStatus = 'pending' | 'paid' | 'preparing' | 'ready' | 'out-for-delivery' | 'delivered' | 'cancelled';
 export type LoyaltyTier = 'Bronze' | 'Silver' | 'Gold' | 'Platinum' | 'VIP';
 
@@ -74,6 +75,46 @@ export interface CartTotals {
   deliveryFee: number;
   total: number;
   pointsEarned: number;
+}
+
+export interface CheckoutCustomerDetails {
+  name: string;
+  phone: string;
+  email: string;
+}
+
+export interface FulfillmentDetails {
+  type: FulfillmentType;
+  address?: string;
+  scheduledAt?: string;
+  notes?: string;
+}
+
+export interface PaymentAttempt {
+  id: string;
+  method: Extract<PaymentMethod, 'M-Pesa' | 'Card'>;
+  status: PaymentStatus;
+  phone: string;
+  checkoutRequestId: string;
+  requestedAt: string;
+  confirmedAt?: string;
+  failureReason?: string;
+  message?: string;
+}
+
+export interface StoredOrder {
+  id: string;
+  branchId: string;
+  customer: CheckoutCustomerDetails;
+  items: CartItem[];
+  totals: CartTotals;
+  fulfillment: FulfillmentDetails;
+  payment: PaymentAttempt;
+  status: OrderStatus;
+  channel: 'webstore';
+  promoCode?: string;
+  createdAt: string;
+  etaMinutes: number;
 }
 
 export interface User {

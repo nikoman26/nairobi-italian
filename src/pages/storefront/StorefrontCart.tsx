@@ -3,10 +3,21 @@ import { Minus, Plus, ShoppingBag, Trash2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { useCart } from "@/src/components/cart/CartProvider";
-import { calculateLineTotal, formatKes, getModifierOption } from "@/src/lib/commerce";
+import { calculateLineTotal, formatKes, getModifierOption, resolvePromotion } from "@/src/lib/commerce";
 
 export function StorefrontCart() {
   const { items, totals, promoCode, setPromoCode, updateQuantity, removeItem } = useCart();
+  const activePromotion = resolvePromotion(promoCode);
+  const unlockRemaining = activePromotion?.minimumSpend && totals.subtotal < activePromotion.minimumSpend
+    ? activePromotion.minimumSpend - totals.subtotal
+    : 0;
+  const promoTone = promoCode && !activePromotion
+    ? 'text-red-300 border-red-500/20 bg-red-500/10'
+    : unlockRemaining
+      ? 'text-orange-300 border-orange-500/20 bg-orange-500/10'
+      : promoCode
+        ? 'text-green-300 border-green-500/20 bg-green-500/10'
+        : '';
 
   return (
     <div className="min-h-screen bg-[#0A0A0B] text-slate-300 pb-24 pt-12">
@@ -16,6 +27,9 @@ export function StorefrontCart() {
             Cart
           </Badge>
           <h1 className="text-4xl md:text-5xl font-bold tracking-tight text-white">Review your webstore order.</h1>
+          <p className="mt-3 text-sm text-slate-500">
+            Your cart is saved on this device, so customers can browse, return, and continue checkout without losing their order.
+          </p>
 
           <div className="mt-8 space-y-4">
             {items.length === 0 ? (
@@ -102,6 +116,15 @@ export function StorefrontCart() {
               Apply
             </Button>
           </form>
+          {promoCode ? (
+            <div className={`mt-3 rounded-lg border p-3 text-sm ${promoTone}`}>
+              {!activePromotion
+                ? `${promoCode} is not an active promo code.`
+                : unlockRemaining
+                  ? `Add ${formatKes(unlockRemaining)} more to unlock ${activePromotion.name}.`
+                  : `${activePromotion.name} applied. Discount updates automatically at checkout.`}
+            </div>
+          ) : null}
           <div className="mt-5 space-y-3 text-sm">
             <div className="flex justify-between">
               <span className="text-slate-400">Subtotal</span>
