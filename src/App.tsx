@@ -7,6 +7,7 @@ import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-d
 import { CartProvider } from './components/cart/CartProvider';
 import { StorefrontLayout } from './components/layout/StorefrontLayout';
 import { AdminLayout } from './components/layout/AdminLayout';
+import { PitchModeNav } from './components/layout/PitchModeNav';
 import { StorefrontHome } from './pages/storefront/StorefrontHome';
 import { StorefrontMenu } from './pages/storefront/StorefrontMenu';
 import { StorefrontAccount } from './pages/storefront/StorefrontAccount';
@@ -18,6 +19,7 @@ import { StorefrontCheckout } from './pages/storefront/StorefrontCheckout';
 import { StorefrontGiftCards } from './pages/storefront/StorefrontGiftCards';
 import { StorefrontLoyalty } from './pages/storefront/StorefrontLoyalty';
 import { StorefrontTrack } from './pages/storefront/StorefrontTrack';
+import { StorefrontPitch } from './pages/storefront/StorefrontPitch';
 import { AdminDashboard } from './pages/admin/AdminDashboard';
 import { AdminAnalytics } from './pages/admin/AdminAnalytics';
 import { AdminCRM } from './pages/admin/AdminCRM';
@@ -31,6 +33,7 @@ export default function App() {
   return (
     <CartProvider>
       <Router>
+        <PitchModeNav />
         <Routes>
           <Route path="/" element={<StorefrontLayout />}>
             <Route index element={<StorefrontHome />} />
@@ -44,6 +47,7 @@ export default function App() {
             <Route path="gift-cards" element={<StorefrontGiftCards />} />
             <Route path="loyalty" element={<StorefrontLoyalty />} />
             <Route path="track" element={<StorefrontTrack />} />
+            <Route path="pitch" element={<StorefrontPitch />} />
           </Route>
 
           <Route path="/admin" element={<AdminLayout />}>
