@@ -1,0 +1,16 @@
+{
+  "name": "Nairobi Italian Ice & Eats",
+  "short_name": "Nairobi Ice",
+  "description": "Order Italian ice, gelato, catering, gift cards, and loyalty rewards in Nairobi.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#0A0A0B",
+  "theme_color": "#FF6B35",
+  "icons": [
+    {
+      "src": "/icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml"
+    }
+  ]
+}

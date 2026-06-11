@@ -1,0 +1,14 @@
+node_modules
+dist
+.next
+.turbo
+coverage
+vite-dev.log
+vite-dev.err.log
+*.tsbuildinfo
+.env
+.env.local
+.env.*.local
+apps
+packages
+assets/.aistudio

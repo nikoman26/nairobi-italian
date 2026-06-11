@@ -1,0 +1,14 @@
+node_modules
+.vercel
+.next
+dist
+coverage
+.turbo
+.env
+.env.local
+.env.*.local
+*.tsbuildinfo
+vite-dev.log
+vite-dev.err.log
+pnpm-lock.yaml
+yarn.lock
