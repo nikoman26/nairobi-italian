@@ -2,11 +2,11 @@
 
 ## One-Line Proposition
 
-Nairobi Italian Ice & Eats now has the foundation for a direct-to-customer digital commerce platform: a mobile-first storefront, webstore, catering funnel, loyalty experience, admin dashboard, and POS prototype built to turn online attention into owned revenue.
+Nairobi Italian Ice & Eats has the foundation for a direct-to-customer digital growth platform: a mobile storefront, webstore, catering funnel, loyalty experience, leadership dashboard, and POS preview built to turn online attention into owned revenue.
 
 ## Why This Matters
 
-Food and dessert brands can lose margin, customer data, and repeat purchase opportunities when they depend only on walk-ins, social DMs, or marketplace apps. This codebase positions Nairobi Italian Ice & Eats to own more of the customer relationship while still leaving room for future marketplace, delivery, payment, and accounting integrations.
+Food and dessert brands can lose margin, customer data, and repeat purchase opportunities when they depend only on walk-ins, social DMs, or marketplace apps. This platform positions Nairobi Italian Ice & Eats to own more of the customer relationship while still leaving room for future marketplace, delivery, payment, and accounting integrations.
 
 The platform is designed around high-value customer actions:
 
@@ -58,7 +58,7 @@ The catering area models packages such as birthday ice bars, corporate dessert d
 
 This is valuable because catering can be a higher-ticket revenue stream than ordinary walk-in orders. The product is not only a menu; it is a lead capture and deposit funnel for events, offices, schools, weddings, and celebrations.
 
-### Admin Dashboard
+### Leadership Dashboard
 
 The admin area provides operational screens for:
 
@@ -72,9 +72,9 @@ The admin area provides operational screens for:
 
 Seeded data already includes branch-aware orders, revenue metrics, inventory levels, customer loyalty details, referrals, and catering requests. This gives the business a working preview of how staff could monitor both digital and in-store operations.
 
-### POS Prototype
+### POS Preview
 
-The `/pos` route provides a tablet-style selling surface for staff. It shares the same product and pricing ideas as the webstore, helping align in-store ordering with online catalog logic.
+The POS preview provides a tablet-style selling surface for staff. It shares the same product and pricing ideas as the webstore, helping align in-store ordering with online catalog logic.
 
 The long-term advantage is a single source of truth for catalog, promotions, order totals, and customer loyalty rather than separate systems for online and counter sales.
 
@@ -99,7 +99,7 @@ Customers get a fast, mobile-first way to browse, customize, order, reorder, tra
 
 ### For Staff
 
-Staff get a practical operating dashboard for order queues, inventory awareness, CRM, loyalty, analytics, and POS activity. Even in prototype form, the codebase shows how customer demand and store operations can connect.
+Staff get a practical operating dashboard for order queues, inventory awareness, CRM, loyalty, analytics, and POS activity. Even in preview form, the platform shows how customer demand and store operations can connect.
 
 ### For Future Investors or Partners
 
@@ -116,7 +116,7 @@ The product tells a scalable story: start with one Nairobi branch, prove direct 
 
 ## Honest Current State
 
-This is a strong front-end and product prototype, not yet a fully live commerce backend. The current implementation uses local seed data and client-side flows to demonstrate the product experience.
+This is a strong product preview, not yet a fully live ordering and operations system. It uses sample business data to demonstrate the customer, staff, and leadership experience.
 
 Production readiness will require:
 
@@ -130,7 +130,7 @@ Production readiness will require:
 
 ## Recommended Next Milestones
 
-1. Connect the Vercel deployment and validate the static customer/admin/POS prototype online.
+1. Connect the Vercel deployment and validate the hosted customer/admin/POS preview online.
 2. Add a production backend API for checkout, orders, customers, loyalty, and admin workflows.
 3. Integrate M-Pesa STK Push and card payment provider flows with idempotent webhooks.
 4. Replace seed data with PostgreSQL-backed branch, catalog, order, inventory, and customer records.
@@ -139,6 +139,6 @@ Production readiness will require:
 
 ## Pitch Summary
 
-Nairobi Italian Ice & Eats is not just getting a website. This codebase establishes the first version of an owned digital operating system for menu commerce, catering revenue, loyalty, POS activity, and branch-aware operations.
+Nairobi Italian Ice & Eats is not just getting a website. This development investment establishes the first version of an owned digital operating system for menu commerce, catering revenue, loyalty, POS activity, and branch-aware operations.
 
 The immediate value is a polished MVP that can be shown, tested, and deployed quickly. The long-term value is a platform that can grow into the business's primary digital sales and operations channel.

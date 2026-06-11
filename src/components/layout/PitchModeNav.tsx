@@ -40,12 +40,12 @@ export function PitchModeNav() {
           to="/pitch"
           className="flex min-w-0 flex-1 flex-col rounded-lg px-2 py-1.5 transition-colors hover:bg-white/5"
         >
-          <span className="truncate text-xs font-semibold uppercase tracking-wider text-[#FF6B35]">Pitch demo</span>
-          <span className="truncate text-sm font-bold text-white">Back to owner pitch</span>
+          <span className="truncate text-xs font-semibold uppercase tracking-wider text-[#FF6B35]">Platform preview</span>
+          <span className="truncate text-sm font-bold text-white">Back to investment story</span>
         </Link>
         <button
           type="button"
-          aria-label="Exit pitch demo mode"
+          aria-label="Exit platform preview mode"
           onClick={() => {
             sessionStorage.removeItem(PITCH_MODE_KEY);
             setIsPitchMode(false);
