@@ -14,6 +14,7 @@ import {
   PackageCheck,
   ReceiptText,
   Repeat,
+  ShieldCheck,
   ShoppingBag,
   Sparkles,
   Store,
@@ -41,6 +42,12 @@ type RoadmapStep = {
   title: string;
   description: string;
   items: string[];
+};
+
+type StoryCard = {
+  title: string;
+  description: string;
+  icon: LucideIcon;
 };
 
 const features: PitchFeature[] = [
@@ -181,6 +188,75 @@ const ownerQuestions = [
   }
 ];
 
+const highValueActions: StoryCard[] = [
+  {
+    title: 'Buy without waiting',
+    description: 'Customers can browse the menu, customize treats, and place orders directly instead of starting in DMs.',
+    icon: ShoppingBag
+  },
+  {
+    title: 'Book bigger orders',
+    description: 'Events, offices, schools, and weddings can move from casual interest to a quote and deposit conversation.',
+    icon: CalendarDays
+  },
+  {
+    title: 'Come back more often',
+    description: 'Points, referrals, gift cards, and saved customer history help turn first visits into repeat customers.',
+    icon: Repeat
+  },
+  {
+    title: 'See the shop clearly',
+    description: 'Orders, stock signals, customer activity, sales, and POS activity are presented as one connected business view.',
+    icon: Store
+  }
+];
+
+const audienceValue: StoryCard[] = [
+  {
+    title: 'For the owner',
+    description: 'More owned sales, better margin control, less dependence on manual chats, and a clearer picture of daily performance.',
+    icon: HandCoins
+  },
+  {
+    title: 'For customers',
+    description: 'A fast mobile experience for ordering, customizing, tracking, gifting, earning rewards, and reordering favorites.',
+    icon: MonitorSmartphone
+  },
+  {
+    title: 'For staff',
+    description: 'A practical operating view for order queues, POS sales, inventory awareness, loyalty, customers, and analytics.',
+    icon: UsersRound
+  },
+  {
+    title: 'For future partners',
+    description: 'A scalable story: prove one branch, then expand into delivery partners, corporate accounts, richer loyalty, and analytics.',
+    icon: HeartHandshake
+  }
+];
+
+const strategicDifferentiators = [
+  'Built around direct sales, deposits, loyalty, and repeat purchases.',
+  'The webstore is central to the experience, not an afterthought.',
+  'Branch-aware from the start so the business can grow beyond one location.',
+  'Grounded in Nairobi needs: KES pricing, M-Pesa readiness, catering, delivery, and office orders.',
+  'Shows both customer buying and staff operations in the same pitch.'
+];
+
+const currentState = [
+  'Ready today: a polished front-end product demo for the storefront, webstore, builder, catering, loyalty, admin, and POS.',
+  'Mocked today: saved accounts, real payments, delivery partner handoff, WhatsApp/SMS campaigns, and AI recommendations.',
+  'Next to connect: real backend records, M-Pesa and card payments, staff access, webhook confirmations, and operational monitoring.'
+];
+
+const nextMilestones = [
+  'Deploy the static demo and validate the story with the Nairobi Italian owner.',
+  'Connect real checkout, order, customer, loyalty, and admin data.',
+  'Add M-Pesa STK Push, card payments, and reliable payment confirmation.',
+  'Move products, orders, customers, inventory, and branches into a live database.',
+  'Add staff login, permissions, activity history, and operational safeguards.',
+  'Pilot with one branch, measure direct orders, then expand into delivery zones, corporate accounts, and smarter analytics.'
+];
+
 const statusStyles = {
   'Ready to show': 'border-green-500/20 bg-green-500/10 text-green-300',
   'Mocked for the pitch': 'border-blue-500/20 bg-blue-500/10 text-blue-300',
@@ -247,8 +323,8 @@ export function StorefrontPitch() {
               A simple way to show Nairobi Italian what this system can do for the business.
             </h1>
             <p className="mt-6 max-w-2xl text-lg leading-8 text-slate-300">
-              This page turns the codebase into a clear owner story: more direct orders, better catering leads,
-              stronger repeat customers, smoother staff work, and a path to grow beyond one branch.
+              Nairobi Italian now has the foundation for a direct-to-customer sales platform: mobile storefront,
+              webstore, catering funnel, loyalty experience, owner dashboard, and POS demo in one guided story.
             </p>
             <div className="mt-8 flex flex-col gap-3 sm:flex-row">
               <Link
@@ -297,25 +373,60 @@ export function StorefrontPitch() {
       <nav className="sticky top-16 z-40 border-b border-white/10 bg-[#0A0A0B]/90 backdrop-blur">
         <div className="mx-auto flex max-w-7xl gap-2 overflow-x-auto px-4 py-3 sm:px-6 lg:px-8">
           {[
+            ['Story', '#story'],
+            ['Value', '#value'],
             ['Webstore', '/menu'],
             ['Builder', '/builder'],
             ['Catering', '/catering'],
             ['Loyalty', '/loyalty'],
             ['Admin', '/admin'],
             ['POS', '/pos']
-          ].map(([label, href]) => (
-            <Link
-              key={href}
-              to={pitchDemoLink(href)}
-              className="inline-flex h-9 shrink-0 items-center justify-center rounded-lg border border-white/10 bg-white/5 px-3 text-sm font-semibold text-white transition-colors hover:bg-white/10"
-            >
-              {label}
-            </Link>
-          ))}
+          ].map(([label, href]) => {
+            const className = "inline-flex h-9 shrink-0 items-center justify-center rounded-lg border border-white/10 bg-white/5 px-3 text-sm font-semibold text-white transition-colors hover:bg-white/10";
+
+            return href.startsWith('#') ? (
+              <a key={href} href={href} className={className}>
+                {label}
+              </a>
+            ) : (
+              <Link key={href} to={pitchDemoLink(href)} className={className}>
+                {label}
+              </Link>
+            );
+          })}
         </div>
       </nav>
 
-      <section className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
+      <section id="story" className="mx-auto max-w-7xl scroll-mt-32 px-4 py-16 sm:px-6 lg:px-8">
+        <div className="grid gap-8 lg:grid-cols-[0.9fr_1.1fr]">
+          <div>
+            <Badge className="mb-4 border border-[#FF6B35]/20 bg-[#FF6B35]/10 text-[#FF6B35]">
+              Why this matters
+            </Badge>
+            <h2 className="text-3xl font-bold text-white md:text-5xl">Own the customer relationship, not just the counter sale.</h2>
+            <p className="mt-4 text-lg leading-8 text-slate-400">
+              Food and dessert brands lose margin, customer data, and repeat orders when sales live only in walk-ins,
+              social DMs, or third-party apps. This platform gives Nairobi Italian a direct channel for everyday orders,
+              catering leads, loyalty, and staff operations.
+            </p>
+          </div>
+          <div className="grid gap-4 sm:grid-cols-2">
+            {highValueActions.map(item => {
+              const Icon = item.icon;
+
+              return (
+                <article key={item.title} className="rounded-xl border border-white/10 bg-[#161618] p-5">
+                  <Icon className="h-6 w-6 text-[#FF6B35]" />
+                  <h3 className="mt-4 text-lg font-bold text-white">{item.title}</h3>
+                  <p className="mt-2 text-sm leading-6 text-slate-400">{item.description}</p>
+                </article>
+              );
+            })}
+          </div>
+        </div>
+      </section>
+
+      <section id="value" className="mx-auto max-w-7xl scroll-mt-32 px-4 pb-16 sm:px-6 lg:px-8">
         <div className="grid gap-5 md:grid-cols-4">
           {[
             [HandCoins, 'Direct sales', 'Online ordering, custom desserts, and giftable offers keep sales closer to the brand.'],
@@ -336,6 +447,36 @@ export function StorefrontPitch() {
       </section>
 
       <section className="border-y border-white/10 bg-[#161618] py-16">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+          <div className="grid gap-8 lg:grid-cols-[0.85fr_1.15fr]">
+            <div>
+              <Badge className="mb-4 border border-white/10 bg-white/5 text-slate-300">
+                Value proposition
+              </Badge>
+              <h2 className="text-3xl font-bold text-white md:text-5xl">Different people see different value in the same system.</h2>
+              <p className="mt-4 text-lg leading-8 text-slate-400">
+                The pitch should make the owner feel the business benefit first, then show how customers, staff, and future partners
+                all fit into the same growth story.
+              </p>
+            </div>
+            <div className="grid gap-4 md:grid-cols-2">
+              {audienceValue.map(item => {
+                const Icon = item.icon;
+
+                return (
+                  <article key={item.title} className="rounded-xl border border-white/10 bg-[#0A0A0B] p-5">
+                    <Icon className="h-6 w-6 text-[#FF6B35]" />
+                    <h3 className="mt-4 text-lg font-bold text-white">{item.title}</h3>
+                    <p className="mt-2 text-sm leading-6 text-slate-400">{item.description}</p>
+                  </article>
+                );
+              })}
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section className="border-b border-white/10 bg-[#0A0A0B] py-16">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="max-w-3xl">
             <Badge className="mb-4 border border-green-500/20 bg-green-500/10 text-green-300">
@@ -378,6 +519,33 @@ export function StorefrontPitch() {
       </section>
 
       <section className="border-y border-white/10 bg-[#161618] py-16">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+          <div className="grid gap-8 lg:grid-cols-[0.9fr_1.1fr]">
+            <div>
+              <Badge className="mb-4 border border-[#FF6B35]/20 bg-[#FF6B35]/10 text-[#FF6B35]">
+                Why this stands out
+              </Badge>
+              <h2 className="text-3xl font-bold text-white md:text-5xl">This is built around revenue, not just pages.</h2>
+              <p className="mt-4 text-lg leading-8 text-slate-400">
+                The strongest client message from the written pitch is that Nairobi Italian is not only getting a website.
+                It is getting the first version of an owned sales and operations channel.
+              </p>
+            </div>
+            <div className="grid gap-3">
+              {strategicDifferentiators.map((item, index) => (
+                <div key={item} className="grid gap-4 rounded-xl border border-white/10 bg-[#0A0A0B] p-4 sm:grid-cols-[44px_1fr]">
+                  <div className="grid h-11 w-11 place-items-center rounded-lg bg-white/5 font-bold text-[#FF6B35]">
+                    {index + 1}
+                  </div>
+                  <p className="self-center text-sm leading-6 text-slate-300">{item}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section className="border-b border-white/10 bg-[#0A0A0B] py-16">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="grid gap-8 lg:grid-cols-[0.9fr_1.1fr]">
             <div>
@@ -473,6 +641,55 @@ export function StorefrontPitch() {
                 </div>
               </article>
             ))}
+          </div>
+        </div>
+      </section>
+
+      <section className="border-t border-white/10 bg-[#0A0A0B] py-16">
+        <div className="mx-auto grid max-w-7xl gap-8 px-4 sm:px-6 lg:grid-cols-[0.9fr_1.1fr] lg:px-8">
+          <div>
+            <Badge className="mb-4 border border-blue-500/20 bg-blue-500/10 text-blue-300">
+              Honest current state
+            </Badge>
+            <h2 className="text-3xl font-bold text-white md:text-5xl">Clear about what is live, mocked, and next.</h2>
+            <p className="mt-4 text-lg leading-8 text-slate-400">
+              This section translates the technical truth into client-safe language. The demo is polished and useful for
+              decision-making, while payments, saved records, and integrations are the next production steps.
+            </p>
+          </div>
+          <div className="grid gap-4">
+            {currentState.map(item => (
+              <div key={item} className="flex gap-4 rounded-xl border border-white/10 bg-[#161618] p-5">
+                <ShieldCheck className="mt-0.5 h-5 w-5 shrink-0 text-[#FF6B35]" />
+                <p className="text-sm leading-6 text-slate-300">{item}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section className="border-t border-white/10 bg-[#161618] py-16">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+          <div className="grid gap-8 lg:grid-cols-[0.9fr_1.1fr]">
+            <div>
+              <Badge className="mb-4 border border-green-500/20 bg-green-500/10 text-green-300">
+                Next milestones
+              </Badge>
+              <h2 className="text-3xl font-bold text-white md:text-5xl">The practical path after the pitch.</h2>
+              <p className="mt-4 text-lg leading-8 text-slate-400">
+                These are the next steps from the written pitch, phrased as business progress rather than engineering chores.
+              </p>
+            </div>
+            <div className="grid gap-3">
+              {nextMilestones.map((item, index) => (
+                <div key={item} className="grid gap-4 rounded-xl border border-white/10 bg-[#0A0A0B] p-4 sm:grid-cols-[44px_1fr]">
+                  <div className="grid h-11 w-11 place-items-center rounded-lg bg-[#FF6B35] font-bold text-black">
+                    {index + 1}
+                  </div>
+                  <p className="self-center text-sm leading-6 text-slate-300">{item}</p>
+                </div>
+              ))}
+            </div>
           </div>
         </div>
       </section>
