@@ -1,42 +1,76 @@
-import { motion } from "motion/react";
-import { TrendingUp, Banknote, Search, Download } from "lucide-react";
+import { TrendingUp, Banknote, Download } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { Badge } from "@/components/ui/badge";
 
+const recentOrders = [
+  {
+    customer: 'Olivia Martin',
+    email: 'olivia.m@email.com',
+    status: 'Ready',
+    statusClass: 'bg-green-500/10 text-green-400 border border-green-500/20 hover:bg-green-500/20',
+    method: 'M-Pesa',
+    amount: 'KES 1,999'
+  },
+  {
+    customer: 'Jackson Lee',
+    email: 'jackson.lee@email.com',
+    status: 'Preparing',
+    statusClass: 'text-orange-400 border-orange-500/30 bg-orange-500/10',
+    method: 'Card',
+    amount: 'KES 3,900'
+  },
+  {
+    customer: 'Isabella Nguyen',
+    email: 'isa.nguyen@email.com',
+    status: 'Preparing',
+    statusClass: 'text-orange-400 border-orange-500/30 bg-orange-500/10',
+    method: 'M-Pesa',
+    amount: 'KES 850'
+  },
+  {
+    customer: 'William Kim',
+    email: 'will@email.com',
+    status: 'Delivered',
+    statusClass: 'bg-white/10 text-slate-300 border border-white/5 hover:bg-white/20',
+    method: 'Glovo',
+    amount: 'KES 990'
+  }
+];
+
 export function AdminDashboard() {
   return (
-    <div className="space-y-8">
-      <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
-        <div>
-          <h1 className="text-2xl font-bold tracking-tight text-white">Dashboard Overview</h1>
+    <div className="max-w-full space-y-6 overflow-hidden sm:space-y-8">
+      <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+        <div className="min-w-0">
+          <h1 className="text-2xl font-bold tracking-tight text-white sm:text-3xl">Dashboard Overview</h1>
           <p className="text-sm text-slate-500 mt-1">Here's what's happening at your stores today.</p>
         </div>
-        <div className="flex items-center gap-2">
-          <Button variant="outline" className="border-white/10 text-white bg-white/5 hover:bg-white/10" size="sm">
+        <div className="flex w-full flex-col gap-2 sm:w-auto sm:flex-row sm:items-center">
+          <Button variant="outline" className="w-full border-white/10 text-white bg-white/5 hover:bg-white/10 sm:w-auto" size="sm">
             <Download className="h-4 w-4 mr-2" /> Export
           </Button>
-          <Button className="bg-[#FF6B35] text-black hover:bg-[#FF6B35]/90 font-semibold" size="sm">
+          <Button className="w-full bg-[#FF6B35] text-black hover:bg-[#FF6B35]/90 font-semibold sm:w-auto" size="sm">
             Generate Report
           </Button>
         </div>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-        <Card className="bg-[#161618] border-white/5 shadow-none rounded-2xl">
+      <div className="grid min-w-0 grid-cols-1 gap-4 sm:grid-cols-2 xl:grid-cols-3">
+        <Card className="min-w-0 bg-[#161618] border-white/5 shadow-none rounded-xl sm:rounded-2xl">
           <CardHeader className="flex flex-row items-center justify-between pb-2">
             <CardTitle className="text-xs uppercase tracking-widest text-slate-500">Total Revenue</CardTitle>
             <Banknote className="h-4 w-4 text-slate-400" />
           </CardHeader>
           <CardContent>
-            <div className="text-3xl font-bold text-white">KES 45,231.89</div>
+            <div className="break-words text-2xl font-bold text-white sm:text-3xl">KES 45,231.89</div>
             <p className="text-[10px] text-green-400 uppercase tracking-wider flex items-center mt-2">
               <TrendingUp className="h-3 w-3 mr-1" /> +20.1% from yesterday
             </p>
           </CardContent>
         </Card>
-        <Card className="bg-[#161618] border-white/5 shadow-none rounded-2xl">
+        <Card className="min-w-0 bg-[#161618] border-white/5 shadow-none rounded-xl sm:rounded-2xl">
           <CardHeader className="flex flex-row items-center justify-between pb-2">
             <CardTitle className="text-xs uppercase tracking-widest text-slate-500">Orders</CardTitle>
             <svg
@@ -54,13 +88,13 @@ export function AdminDashboard() {
             </svg>
           </CardHeader>
           <CardContent>
-            <div className="text-3xl font-bold text-white">+235</div>
+            <div className="text-2xl font-bold text-white sm:text-3xl">+235</div>
             <p className="text-[10px] text-[#FF6B35] uppercase tracking-wider mt-2">
               +180.1% from yesterday
             </p>
           </CardContent>
         </Card>
-        <Card className="bg-[#161618] border-white/5 shadow-none rounded-2xl">
+        <Card className="min-w-0 bg-[#161618] border-white/5 shadow-none rounded-xl sm:rounded-2xl sm:col-span-2 xl:col-span-1">
           <CardHeader className="flex flex-row items-center justify-between pb-2">
             <CardTitle className="text-xs uppercase tracking-widest text-slate-500">Active Rewards Customers</CardTitle>
             <svg
@@ -77,7 +111,7 @@ export function AdminDashboard() {
             </svg>
           </CardHeader>
           <CardContent>
-            <div className="text-3xl font-bold text-white">+12,234</div>
+            <div className="text-2xl font-bold text-white sm:text-3xl">+12,234</div>
             <p className="text-[10px] text-blue-400 uppercase tracking-wider mt-2">
               +19 since last hour
             </p>
@@ -85,16 +119,37 @@ export function AdminDashboard() {
         </Card>
       </div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-7 gap-6">
-        <Card className="col-span-1 lg:col-span-4 bg-[#161618] border-white/5 shadow-none text-white rounded-2xl">
+      <div className="grid min-w-0 grid-cols-1 gap-4 lg:grid-cols-7 lg:gap-6">
+        <Card className="col-span-1 min-w-0 lg:col-span-4 bg-[#161618] border-white/5 shadow-none text-white rounded-xl sm:rounded-2xl">
           <CardHeader>
             <CardTitle className="text-sm font-semibold uppercase tracking-wider">Recent Orders</CardTitle>
             <CardDescription className="text-slate-500">
               You made 265 sales this month.
             </CardDescription>
           </CardHeader>
-          <CardContent>
-            <Table>
+          <CardContent className="px-0 sm:px-4">
+            <div className="space-y-3 px-4 sm:hidden">
+              {recentOrders.map(order => (
+                <article key={`${order.customer}-${order.amount}`} className="rounded-xl border border-white/10 bg-[#0A0A0B] p-4">
+                  <div className="flex flex-col items-start gap-3">
+                    <div className="min-w-0">
+                      <p className="truncate font-semibold text-white">{order.customer}</p>
+                      <p className="truncate text-xs text-slate-500">{order.email}</p>
+                    </div>
+                    <Badge className={`${order.statusClass} w-fit shrink-0 shadow-none uppercase text-[10px] tracking-wider font-semibold`}>
+                      {order.status}
+                    </Badge>
+                  </div>
+                  <div className="mt-4 grid gap-1 border-t border-white/10 pt-3 text-sm">
+                    <span className="text-xs uppercase tracking-wider text-slate-500">{order.method}</span>
+                    <strong className="font-mono text-white">{order.amount}</strong>
+                  </div>
+                </article>
+              ))}
+            </div>
+
+            <div className="hidden w-full max-w-full overflow-x-auto sm:block">
+            <Table className="min-w-[620px]">
               <TableHeader className="border-b border-white/10">
                 <TableRow className="border-white/10 hover:bg-white/5">
                   <TableHead className="text-slate-400">Customer</TableHead>
@@ -104,73 +159,53 @@ export function AdminDashboard() {
                 </TableRow>
               </TableHeader>
               <TableBody>
-                <TableRow className="border-white/10 hover:bg-white/5">
-                  <TableCell>
-                    <div className="font-medium text-white">Olivia Martin</div>
-                    <div className="text-xs text-slate-500">olivia.m@email.com</div>
-                  </TableCell>
-                  <TableCell><Badge className="bg-green-500/10 text-green-400 border border-green-500/20 hover:bg-green-500/20 shadow-none uppercase text-[10px] tracking-wider font-semibold">Ready</Badge></TableCell>
-                  <TableCell><span className="text-sm text-slate-400">M-Pesa</span></TableCell>
-                  <TableCell className="text-right font-mono text-white">KES 1,999</TableCell>
-                </TableRow>
-                <TableRow className="border-white/10 hover:bg-white/5">
-                  <TableCell>
-                    <div className="font-medium text-white">Jackson Lee</div>
-                    <div className="text-xs text-slate-500">jackson.lee@email.com</div>
-                  </TableCell>
-                  <TableCell><Badge variant="outline" className="text-orange-400 border-orange-500/30 bg-orange-500/10 uppercase text-[10px] tracking-wider font-semibold">Preparing</Badge></TableCell>
-                  <TableCell><span className="text-sm text-slate-400">Card</span></TableCell>
-                  <TableCell className="text-right font-mono text-white">KES 3,900</TableCell>
-                </TableRow>
-                <TableRow className="border-white/10 hover:bg-white/5">
-                  <TableCell>
-                    <div className="font-medium text-white">Isabella Nguyen</div>
-                    <div className="text-xs text-slate-500">isa.nguyen@email.com</div>
-                  </TableCell>
-                  <TableCell><Badge variant="outline" className="text-orange-400 border-orange-500/30 bg-orange-500/10 uppercase text-[10px] tracking-wider font-semibold">Preparing</Badge></TableCell>
-                  <TableCell><span className="text-sm text-slate-400">M-Pesa</span></TableCell>
-                  <TableCell className="text-right font-mono text-white">KES 850</TableCell>
-                </TableRow>
-                <TableRow className="border-white/10 hover:bg-white/5">
-                  <TableCell>
-                    <div className="font-medium text-white">William Kim</div>
-                    <div className="text-xs text-slate-500">will@email.com</div>
-                  </TableCell>
-                  <TableCell><Badge variant="secondary" className="bg-white/10 text-slate-300 border border-white/5 uppercase text-[10px] tracking-wider font-semibold hover:bg-white/20">Delivered</Badge></TableCell>
-                  <TableCell><span className="text-sm text-slate-400">Glovo</span></TableCell>
-                  <TableCell className="text-right font-mono text-white">KES 990</TableCell>
-                </TableRow>
+                {recentOrders.map(order => (
+                  <TableRow key={`${order.customer}-${order.amount}`} className="border-white/10 hover:bg-white/5">
+                    <TableCell>
+                      <div className="font-medium text-white">{order.customer}</div>
+                      <div className="text-xs text-slate-500">{order.email}</div>
+                    </TableCell>
+                    <TableCell>
+                      <Badge className={`${order.statusClass} shadow-none uppercase text-[10px] tracking-wider font-semibold`}>
+                        {order.status}
+                      </Badge>
+                    </TableCell>
+                    <TableCell><span className="text-sm text-slate-400">{order.method}</span></TableCell>
+                    <TableCell className="text-right font-mono text-white">{order.amount}</TableCell>
+                  </TableRow>
+                ))}
               </TableBody>
             </Table>
+            </div>
           </CardContent>
         </Card>
         
-        <Card className="col-span-1 lg:col-span-3 bg-[#161618] border-white/5 shadow-none text-white rounded-2xl">
+        <Card className="col-span-1 min-w-0 lg:col-span-3 bg-[#161618] border-white/5 shadow-none text-white rounded-xl sm:rounded-2xl">
           <CardHeader>
             <CardTitle className="text-sm font-semibold uppercase tracking-wider">Popular Items</CardTitle>
             <CardDescription className="text-slate-500">Items moving fastest today.</CardDescription>
           </CardHeader>
           <CardContent>
             <div className="space-y-6">
-              <div className="flex items-center">
+              <div className="flex items-center gap-3">
                 <div className="h-10 w-10 rounded-xl bg-[#FF6B35] flex items-center justify-center shrink-0">
                   <span className="text-xs font-bold text-black">1</span>
                 </div>
-                <div className="ml-4 space-y-1">
-                  <p className="text-sm font-medium leading-none text-white">Strawberry Mango Ice</p>
+                <div className="min-w-0 flex-1 space-y-1">
+                  <p className="truncate text-sm font-medium leading-none text-white">Strawberry Mango Ice</p>
                   <p className="text-sm text-slate-500">42 Orders</p>
                 </div>
-                <div className="ml-auto font-mono text-sm text-white">KES 14,700</div>
+                <div className="shrink-0 text-right font-mono text-sm text-white">KES 14,700</div>
               </div>
-              <div className="flex items-center">
+              <div className="flex items-center gap-3">
                 <div className="h-10 w-10 rounded-xl bg-white/10 flex items-center justify-center shrink-0 border border-white/5">
                   <span className="text-xs font-bold text-white">2</span>
                 </div>
-                <div className="ml-4 space-y-1">
-                  <p className="text-sm font-medium leading-none text-white">Madagascar Vanilla Gelato</p>
+                <div className="min-w-0 flex-1 space-y-1">
+                  <p className="truncate text-sm font-medium leading-none text-white">Madagascar Vanilla Gelato</p>
                   <p className="text-sm text-slate-500">28 Orders</p>
                 </div>
-                <div className="ml-auto font-mono text-sm text-white">KES 12,600</div>
+                <div className="shrink-0 text-right font-mono text-sm text-white">KES 12,600</div>
               </div>
             </div>
           </CardContent>

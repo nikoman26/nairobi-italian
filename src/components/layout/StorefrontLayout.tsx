@@ -20,22 +20,22 @@ export function StorefrontLayout() {
   const [mobileOpen, setMobileOpen] = useState(false);
 
   return (
-    <div className="min-h-screen flex flex-col bg-[#0A0A0B] text-slate-300 font-sans">
-      <header className="sticky top-0 z-50 w-full border-b border-white/10 bg-[#0A0A0B]/80 backdrop-blur-md">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
-          <div className="flex items-center gap-4">
+    <div className="min-h-screen flex flex-col overflow-x-hidden bg-[#0A0A0B] text-slate-300 font-sans">
+      <header className="sticky top-0 z-50 w-full border-b border-white/10 bg-[#0A0A0B] shadow-lg shadow-black/20">
+        <div className="mx-auto flex h-16 w-full max-w-7xl items-center justify-between gap-3 px-3 sm:px-6 lg:px-8">
+          <div className="flex min-w-0 items-center gap-2 sm:gap-4">
             <Button
               variant="ghost"
               size="icon"
-              className="md:hidden text-slate-400 hover:text-white hover:bg-white/5"
+              className="md:hidden shrink-0 text-slate-400 hover:text-white hover:bg-white/5"
               onClick={() => setMobileOpen(true)}
               aria-label="Open navigation"
             >
               <MenuIcon className="h-5 w-5" />
             </Button>
 
-            <Link to="/" className="flex flex-col">
-              <span className="font-bold text-xl tracking-tight text-white leading-none uppercase">Nairobi Italian</span>
+            <Link to="/" className="flex min-w-0 flex-col">
+              <span className="truncate font-bold text-base tracking-tight text-white leading-none uppercase sm:text-xl">Nairobi Italian</span>
               <span className="text-[10px] font-semibold tracking-widest text-[#FF6B35] uppercase leading-tight mt-0.5">Ice & Eats</span>
             </Link>
           </div>
@@ -54,7 +54,7 @@ export function StorefrontLayout() {
             ))}
           </nav>
 
-          <div className="flex items-center gap-2">
+          <div className="flex shrink-0 items-center gap-2">
             <div className="hidden lg:flex items-center gap-2 mr-4 text-xs font-medium text-slate-500">
               <MapPin className="h-3 w-3" />
               <span>Westlands branch open until 10pm</span>
@@ -80,8 +80,8 @@ export function StorefrontLayout() {
         </div>
 
         {mobileOpen ? (
-          <div className="fixed inset-0 z-50 bg-black/70 md:hidden">
-            <div className="h-full w-80 max-w-[85vw] border-r border-white/10 bg-[#161618] p-5 shadow-2xl">
+          <div className="fixed inset-0 z-[70] bg-[#0A0A0B] md:hidden">
+            <div className="flex h-full w-full max-w-sm flex-col border-r border-white/10 bg-[#161618] p-5 shadow-2xl">
               <div className="flex items-center justify-between">
                 <div>
                   <p className="font-bold text-white uppercase">Nairobi Italian</p>
@@ -97,7 +97,7 @@ export function StorefrontLayout() {
                   <X className="h-5 w-5" />
                 </Button>
               </div>
-              <nav className="mt-8 flex flex-col gap-4">
+              <nav className="mt-8 flex flex-col gap-2">
                 {[
                   ...navItems,
                   { href: '/gift-cards', label: 'Gift Cards' },
@@ -107,7 +107,9 @@ export function StorefrontLayout() {
                     key={item.href}
                     to={item.href}
                     onClick={() => setMobileOpen(false)}
-                    className="text-lg font-medium text-slate-300 transition-colors hover:text-[#FF6B35]"
+                    className={`rounded-lg px-3 py-3 text-base font-semibold transition-colors ${
+                      location.pathname === item.href ? 'bg-[#FF6B35]/10 text-[#FF6B35]' : 'text-slate-300 hover:bg-white/5 hover:text-white'
+                    }`}
                   >
                     {item.label}
                   </Link>
@@ -118,7 +120,7 @@ export function StorefrontLayout() {
         ) : null}
       </header>
 
-      <main className="flex-1">
+      <main className="min-w-0 flex-1">
         <Outlet />
       </main>
 

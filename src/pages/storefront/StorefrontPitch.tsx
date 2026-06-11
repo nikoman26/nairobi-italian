@@ -265,7 +265,7 @@ const statusStyles = {
 
 function StatusBadge({ status }: { status: PitchFeature['status'] }) {
   return (
-    <span className={`rounded-md border px-2 py-1 text-[10px] font-semibold uppercase tracking-wider ${statusStyles[status]}`}>
+    <span className={`max-w-full rounded-md border px-2 py-1 text-left text-[10px] font-semibold uppercase leading-snug tracking-wider ${statusStyles[status]}`}>
       {status}
     </span>
   );
@@ -276,7 +276,7 @@ function FeatureCard({ feature }: { feature: PitchFeature }) {
 
   return (
     <article className="flex h-full flex-col rounded-xl border border-white/10 bg-[#161618] p-5">
-      <div className="flex items-start justify-between gap-4">
+      <div className="flex flex-wrap items-start justify-between gap-3">
         <div className="grid h-10 w-10 place-items-center rounded-lg border border-[#FF6B35]/20 bg-[#FF6B35]/10 text-[#FF6B35]">
           <Icon className="h-5 w-5" />
         </div>
@@ -303,7 +303,7 @@ export function StorefrontPitch() {
   const showcaseProducts = MOCK_PRODUCTS.filter(product => product.isPopular).slice(0, 3);
 
   return (
-    <div className="min-h-screen bg-[#0A0A0B] text-slate-300">
+    <div className="min-h-screen overflow-x-hidden bg-[#0A0A0B] text-slate-300">
       <section className="relative overflow-hidden border-b border-white/10">
         <div className="absolute inset-0">
           <img
@@ -319,10 +319,10 @@ export function StorefrontPitch() {
             <Badge className="mb-5 border border-[#FF6B35]/20 bg-[#FF6B35]/10 text-[#FF6B35]">
               Nairobi Italian investment preview
             </Badge>
-            <h1 className="max-w-4xl text-4xl font-bold tracking-tight text-white md:text-6xl">
+            <h1 className="max-w-4xl break-words text-3xl font-bold leading-tight tracking-tight text-white sm:text-4xl md:text-6xl">
               A digital growth platform built for Nairobi Italian Ice & Eats.
             </h1>
-            <p className="mt-6 max-w-2xl text-lg leading-8 text-slate-300">
+            <p className="mt-6 max-w-2xl break-words text-base leading-7 text-slate-300 sm:text-lg sm:leading-8">
               This investment creates a direct-to-customer sales system for online orders, custom desserts,
               catering, loyalty, daily operations, and future branch growth.
             </p>
@@ -370,7 +370,7 @@ export function StorefrontPitch() {
         </div>
       </section>
 
-      <nav className="sticky top-16 z-40 border-b border-white/10 bg-[#0A0A0B]/90 backdrop-blur">
+      <nav className="sticky top-16 z-40 border-b border-white/10 bg-[#0A0A0B] shadow-lg shadow-black/20">
         <div className="mx-auto flex max-w-7xl gap-2 overflow-x-auto px-4 py-3 sm:px-6 lg:px-8">
           {[
             ['Story', '#story'],

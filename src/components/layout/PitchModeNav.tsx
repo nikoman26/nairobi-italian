@@ -32,7 +32,7 @@ export function PitchModeNav() {
 
   return (
     <div className="fixed inset-x-3 bottom-3 z-[80] sm:inset-x-auto sm:bottom-auto sm:right-4 sm:top-4 sm:w-[360px]">
-      <div className="flex items-center gap-2 rounded-xl border border-white/10 bg-[#161618]/95 p-2 text-white shadow-2xl backdrop-blur">
+      <div className="flex items-center gap-2 rounded-xl border border-white/10 bg-[#161618] p-2 text-white shadow-2xl">
         <div className="hidden h-10 w-10 shrink-0 place-items-center rounded-lg bg-[#FF6B35]/15 text-[#FF6B35] sm:grid">
           <Presentation className="h-5 w-5" />
         </div>
